@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 import {
   FavoriteBorderOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
-} from "@material-ui/icons";
+} from '@material-ui/icons';
+import { Link } from 'react-router-dom';
 
 const Info = styled.div`
   opacity: 0;
@@ -71,14 +72,17 @@ const ProductDetails = ({ item }) => {
   return (
     <Container>
       <Circle />
-      <Image src={item.img} />
+
+      <Image src={item.img} alt='image' />
       <Info>
         <Icon>
           <ShoppingCartOutlined style={{ fontSize: 27 }} />
         </Icon>
 
         <Icon>
-          <SearchOutlined style={{ fontSize: 27 }} />
+          <Link to={`/product/${item._id}`}>
+            <SearchOutlined style={{ fontSize: 27 }} />
+          </Link>
         </Icon>
 
         <Icon>

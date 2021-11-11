@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Search, ShoppingCartOutlined } from '@material-ui/icons';
 import { Badge } from '@material-ui/core';
 import { mobile } from '../../Responsive';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   margin: 0.8rem;
@@ -37,7 +38,9 @@ const Input = styled.input`
   ${mobile({ width: '7rem' })}
 `;
 
-const Logo = styled.h1`
+const Logo = styled(Link)`
+  text-decoration: none;
+  color: black;
   font-weight: bold;
   ${mobile({ fontSize: '2.4rem' })}
 `;
@@ -53,7 +56,6 @@ const Center = styled.div`
   flex: 1;
   font-size: 2.4rem;
   text-align: center;
-  
 `;
 const Right = styled.div`
   display: flex;
@@ -83,7 +85,7 @@ const NavBar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>H&L</Logo>
+          <Logo to='/'>HighestLeveL</Logo>
         </Center>
         <Right>
           <MenuItem>Register</MenuItem>

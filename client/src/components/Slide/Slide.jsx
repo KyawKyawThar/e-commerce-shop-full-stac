@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import { ArrowLeftTwoTone, ArrowRightTwoTone } from "@material-ui/icons";
-import { sliderItems } from "../custom/data";
-import { useState } from "react";
-import { mobile } from "../../Responsive";
+import styled from 'styled-components';
+import { ArrowLeftTwoTone, ArrowRightTwoTone } from '@material-ui/icons';
+import { sliderItems } from '../custom/data';
+import { useState } from 'react';
+import { mobile } from '../../Responsive';
 
 const Container = styled.div`
   width: 100%;
@@ -10,7 +10,7 @@ const Container = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
-  ${mobile({ display: "none" })}
+  ${mobile({ display: 'none' })}
 `;
 
 const Arrow = styled.div`
@@ -24,8 +24,8 @@ const Arrow = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: ${(props) => props.direction === "left" && "10px"};
-  right: ${(props) => props.direction === "right" && "10px"};
+  left: ${(props) => props.direction === 'left' && '10px'};
+  right: ${(props) => props.direction === 'right' && '10px'};
   margin: auto;
   cursor: pointer;
   opacity: 0.5;
@@ -69,7 +69,7 @@ const Desc = styled.p`
   margin: 4.8rem 0;
   font-size: 2rem;
   font-weight: 500;
-  letter-spacing: 3px;
+  /* letter-spacing: 3px; */
 `;
 const Bottom = styled.button`
   //padding: 8px 16px;
@@ -86,7 +86,7 @@ const Slide = () => {
   const [slideIndex, setSlideIndex] = useState(0);
 
   const handleClick = (direction) => {
-    if (direction === "left") {
+    if (direction === 'left') {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
     } else {
       setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
@@ -94,7 +94,7 @@ const Slide = () => {
   };
   return (
     <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
+      <Arrow direction='left' onClick={() => handleClick('left')}>
         <ArrowLeftTwoTone />
       </Arrow>
       <Wrapper slideIndex={slideIndex}>
@@ -111,7 +111,7 @@ const Slide = () => {
           </Slider>
         ))}
       </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick("right")}>
+      <Arrow direction='right' onClick={() => handleClick('right')}>
         <ArrowRightTwoTone />
       </Arrow>
     </Container>

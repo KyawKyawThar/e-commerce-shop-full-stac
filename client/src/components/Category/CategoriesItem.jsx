@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { mobile } from "../../Responsive";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { mobile } from '../../Responsive';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   flex: 1;
@@ -13,7 +13,7 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  ${mobile({ height: "25vh" })}
+  ${mobile({ height: '25vh' })}
 `;
 const InfoContainer = styled.div`
   position: absolute;
@@ -28,7 +28,7 @@ const InfoContainer = styled.div`
 `;
 const Title = styled.h1`
   color: white;
-  letter-spacing: 2px;
+  /* letter-spacing: 2px; */
   font-weight: 800;
   font-size: 3rem;
   margin-bottom: 3.2rem;

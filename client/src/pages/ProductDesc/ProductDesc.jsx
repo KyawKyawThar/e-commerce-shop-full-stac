@@ -1,4 +1,5 @@
 import { Add, Remove } from '@material-ui/icons';
+import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import Announcement from '../../components/Advertisement/Advertisement';
 import Footer from '../../components/Footer/Footer';
@@ -125,6 +126,10 @@ const Button = styled.button`
 `;
 
 const ProductDesc = () => {
+  const location = useLocation();
+
+  const cat = location.pathname.split('/')[2];
+  console.log(cat);
   return (
     <Container>
       <NavBar />

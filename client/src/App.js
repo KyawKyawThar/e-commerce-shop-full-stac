@@ -7,6 +7,7 @@ import SignIn from "./pages/SignIn/SignIn";
 import Register from "./pages/Register/Register";
 
 const App = () => {
+
   const user = true;
   return (
     <div>
