@@ -1,1 +1,1 @@
-# e-commerce-shop-full-stac
+# e-commerce-shop-full-stack
