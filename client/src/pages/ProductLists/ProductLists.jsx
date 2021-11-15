@@ -50,7 +50,7 @@ const ProductLists = () => {
     //console.log({ value }, e.target.name); // value = "x,l,m,xl,black,white" , name="colors,sizes"
     setFilters({
       ...filters,
-      [e.target.name]: value.toLowerCase(),
+      [e.target.name]: value.toUpperCase(),
     });
   };
   // console.log(filters);

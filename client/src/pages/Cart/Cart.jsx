@@ -1,8 +1,9 @@
-import styled from 'styled-components';
-import Announcement from '../../components/Advertisement/Advertisement';
-import NavBar from '../../components/NavBar/NavBar';
-import Footer from '../../components/Footer/Footer';
-import { Add, Remove } from '@material-ui/icons';
+import styled from "styled-components";
+import Announcement from "../../components/Advertisement/Advertisement";
+import NavBar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
+import { Add, Remove } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 
 const Container = styled.div``;
 
@@ -133,14 +134,14 @@ const Summary = styled.div`
 `;
 
 const SummaryTitle = styled.div`
-  font-size: 200;
+  font-size: 20px;
 `;
 const SummaryItem = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 3.2rem 0;
-  font-weight: ${(props) => props.type === 'total' && '600'};
-  font-size: ${(props) => props.type === 'toal' && '30px'};
+  font-weight: ${(props) => props.type === "total" && "600"};
+  font-size: ${(props) => props.type === "toal" && "30px"};
 `;
 
 const SummaryItemText = styled.span``;
@@ -157,6 +158,8 @@ const Button = styled.button`
   font-weight: 600;
 `;
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+  console.log({ cart });
   return (
     <Container>
       <NavBar />
@@ -172,74 +175,50 @@ const Cart = () => {
             <TopText>Your Whitelist(0)</TopText>
           </TopTexts>
 
-          <TopButton type='filled'>Checkout Now</TopButton>
+          <TopButton type="filled">Checkout Now</TopButton>
         </Top>
 
         <Buttom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src='https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A' />
+            {cart.products.map((product) => (
+              <Product>
+                <ProductDetail>
+                  <Image src={product.img} />
 
-                <Detail>
-                  <ProductName>
-                    <b>Product:</b> JESSIE THUNDER SHOES
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813718293
-                  </ProductId>
+                  <Detail>
+                    <ProductName>
+                      <b>Product:</b> {product.title}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b> {product._id}
+                    </ProductId>
 
-                  <ProductColor color='black' />
-                  <ProductSize>
-                    <b>Size:</b> 37.5
-                  </ProductSize>
-                </Detail>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmoutContainer>
-                  <Add style={{ fontSize: 25 }} />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove style={{ fontSize: 25 }} />
-                </ProductAmoutContainer>
-                <ProductPrice>$30</ProductPrice>
-              </PriceDetail>
-            </Product>
+                    <ProductColor color={product.color} />
+                    <ProductSize>
+                      <b>Size:</b> {product.size}
+                    </ProductSize>
+                  </Detail>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmoutContainer>
+                    <Add style={{ fontSize: 25 }} />
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <Remove style={{ fontSize: 25 }} />
+                  </ProductAmoutContainer>
+                  <ProductPrice>
+                    ${product.price * product.quantity}
+                  </ProductPrice>
+                </PriceDetail>
+              </Product>
+            ))}
 
             <Hr />
-
-            <Product>
-              <ProductDetail>
-                <Image src='https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png' />
-
-                <Detail>
-                  <ProductName>
-                    <b>Product:</b> HAKURA T-SHIRT
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813718293
-                  </ProductId>
-
-                  <ProductColor color='gray' />
-                  <ProductSize>
-                    <b>Size:</b> M
-                  </ProductSize>
-                </Detail>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmoutContainer>
-                  <Add style={{ fontSize: 25 }} />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove style={{ fontSize: 25 }} />
-                </ProductAmoutContainer>
-                <ProductPrice>$20</ProductPrice>
-              </PriceDetail>
-            </Product>
           </Info>
           <Summary>
             <SummaryTitle>Order Summary</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
 
             <SummaryItem>
@@ -252,9 +231,9 @@ const Cart = () => {
               <SummaryItemPrice>$ -5.90</SummaryItemPrice>
             </SummaryItem>
 
-            <SummaryItem type='total'>
+            <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ 80</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
             </SummaryItem>
 
             <Button>Checkout Now</Button>
@@ -267,5 +246,3 @@ const Cart = () => {
 };
 
 export default Cart;
-//
-//

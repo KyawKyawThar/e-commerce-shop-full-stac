@@ -1,34 +1,38 @@
-import { Add, Remove } from '@material-ui/icons';
-import { useLocation } from 'react-router';
-import styled from 'styled-components';
-import Announcement from '../../components/Advertisement/Advertisement';
-import Footer from '../../components/Footer/Footer';
-import NavBar from '../../components/NavBar/NavBar';
-import NewsLetter from '../../components/NewsLetter/NewsLetter';
-import { mobile } from '../../Responsive';
+import { Add, Remove } from "@material-ui/icons";
+import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+import Announcement from "../../components/Advertisement/Advertisement";
+import Footer from "../../components/Footer/Footer";
+import NavBar from "../../components/NavBar/NavBar";
+import NewsLetter from "../../components/NewsLetter/NewsLetter";
+import { mobile } from "../../Responsive";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux/cartRedux";
 
 const Container = styled.div``;
 
 const Wrapper = styled.div`
   display: flex;
   padding: 4.8rem;
-  ${mobile({ padding: '1rem', flexDirection: 'column' })}
+  ${mobile({ padding: "1rem", flexDirection: "column" })}
 `;
 
 const ImageContainer = styled.div`
   flex: 1;
 `;
 const Image = styled.img`
-  width: 100%;
+  width: 78%;
   height: 90vh;
   object-fit: cover;
-  ${mobile({ height: '40vh' })}
+  ${mobile({ height: "40vh" })}
 `;
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0 4.8rem;
-  ${mobile({ padding: '1.2rem' })}
+  ${mobile({ padding: "1.2rem" })}
 `;
 
 const Title = styled.h1`
@@ -54,7 +58,7 @@ const FilterContainer = styled.div`
   width: 50%;
   display: flex;
   justify-content: space-between;
-  ${mobile({ width: '100%' })}
+  ${mobile({ width: "100%" })}
 `;
 
 const Filter = styled.div`
@@ -90,7 +94,7 @@ const AddContainer = styled.div`
   align-items: center;
   width: 50%;
   justify-content: space-between;
-  ${mobile({ width: '100%' })}
+  ${mobile({ width: "100%" })}
 `;
 
 const AmountContainer = styled.div`
@@ -118,7 +122,7 @@ const Button = styled.button`
   border: 2px solid teal;
   font-size: 2rem;
 
-  ${mobile({ fontSize: '1.6rem', padding: '0.8rem 1.6rem' })}
+  ${mobile({ fontSize: "1.6rem", padding: "0.8rem 1.6rem" })}
 
   &:hover {
     background-color: #f8f4f4;
@@ -127,55 +131,83 @@ const Button = styled.button`
 
 const ProductDesc = () => {
   const location = useLocation();
+  const [product, setProduct] = useState({});
+  const [quantity, setQuantity] = useState(1);
+  const [color, serColor] = useState("");
+  const [size, setSize] = useState("");
+  const id = location.pathname.split("/")[2];
+  const dispatch = useDispatch();
 
-  const cat = location.pathname.split('/')[2];
-  console.log(cat);
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8080/api/products/find/${id}`
+        );
+
+        setProduct(res.data);
+      } catch (e) {}
+    };
+    getProducts();
+  }, [id]);
+
+  const handleQuantity = (type) => {
+    if (type === "dec" && quantity > 0) {
+      setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const handleClick = () => {
+    dispatch(addProduct({ ...product, color, size, quantity }));
+  };
   return (
     <Container>
       <NavBar />
       <Announcement />
       <Wrapper>
         <ImageContainer>
-          <Image src='https://i.ibb.co/S6qMxwr/jean.jpg' />
+          <Image src={product.img} />
         </ImageContainer>
 
         <InfoContainer>
-          <Title>Denim Jumpsuit</Title>
-          <Desc>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-            aliquet erat nunc. Fusce efficitur convallis tortor, a luctus sem
-            laoreet ut. Aliquam ullamcorper sapien nisl, rhoncus faucibus ipsum
-            dapibus at. In pulvinar vestibulum arcu non ultrices. Proin lobortis
-            at est ut condimentum. Proin rhoncus interdum consectetur.
-          </Desc>
-          <Price>$ 200</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>$ {product.price}</Price>
 
           <FilterContainer>
             <Filter>
               <FilterTitle>Color</FilterTitle>
-              <FilterColor color='black' />
-              <FilterColor color='darkblue' />
-              <FilterColor color='gray' />
+
+              {/* ? is important */}
+              {product.color?.map((c) => (
+                <FilterColor color={c} key={c} onClick={() => serColor(c)} />
+              ))}
             </Filter>
             <Filter>
               <FilterTitle>Size</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>XS</FilterSizeOption>
-                <FilterSizeOption>S</FilterSizeOption>
-                <FilterSizeOption>M</FilterSizeOption>
-                <FilterSizeOption>L</FilterSizeOption>
-                <FilterSizeOption>XL</FilterSizeOption>
+              <FilterSize onChange={(e) => setSize(e.target.value)}>
+                {product.size?.map((s) => (
+                  <FilterSizeOption key={s}>{s.toUpperCase()}</FilterSizeOption>
+                ))}
               </FilterSize>
             </Filter>
           </FilterContainer>
 
           <AddContainer>
             <AmountContainer>
-              <Remove style={{ fontSize: 25, cursor: 'pointer' }} />
-              <Amount>1</Amount>
-              <Add style={{ fontSize: 25, cursor: 'pointer' }} />
+              <Remove
+                onClick={() => handleQuantity("dec")}
+                style={{ fontSize: 25, cursor: "pointer" }}
+              />
+              <Amount>{quantity}</Amount>
+              <Add
+                onClick={() => handleQuantity("inc")}
+                style={{ fontSize: 25, cursor: "pointer" }}
+              />
             </AmountContainer>
-            <Button>Add to Cart</Button>
+            <Button onClick={() => handleClick()}>Add to Cart </Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
