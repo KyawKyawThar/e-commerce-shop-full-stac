@@ -5,9 +5,9 @@ import ProductLists from "./pages/ProductLists/ProductLists";
 import Cart from "./pages/Cart/Cart";
 import SignIn from "./pages/SignIn/SignIn";
 import Register from "./pages/Register/Register";
+import Success from "./components/Success/Success";
 
 const App = () => {
-
   const user = true;
   return (
     <div>
@@ -16,6 +16,8 @@ const App = () => {
         <Route path="/products/:categories" component={ProductLists} />
         <Route path="/product/:id" component={ProductDesc} />
         <Route path="/cart" component={Cart} />
+
+        <Route path="/success" component={Success} />
 
         <Route exact path="/login">
           {user ? <Redirect to="/" /> : <SignIn />}
