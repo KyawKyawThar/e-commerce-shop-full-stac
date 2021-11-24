@@ -4,14 +4,18 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import ProductLists from './pages/ProductLists/ProductLists';
 import Cart from './pages/Cart/Cart';
 import SignIn from './pages/SignIn/SignIn';
-import Register from './pages/Register/Register';
+
 import Success from './components/Success/Success';
+
 import { useSelector } from 'react-redux';
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
+  console.log({ user });
+
   return (
     <div>
+      {/* <NavBar user={user} /> */}
       <Switch>
         <Route exact path='/' component={Home} />
         <Route path='/products/:categories' component={ProductLists} />
@@ -20,13 +24,13 @@ const App = () => {
 
         <Route path='/success' component={Success} />
 
-        <Route exact path='/login'>
-          {user ? <Redirect to='/' /> : <SignIn />}
-        </Route>
-
-        <Route exact path='/register'>
-          {user ? <Redirect to='/' /> : <Register />}
-        </Route>
+        {user ? (
+          <Route exact path='/login'>
+            <Redirect to='/' />
+          </Route>
+        ) : (
+          <SignIn />
+        )}
       </Switch>
     </div>
   );

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import Announcement from '../../components/Advertisement/Advertisement';
-import NavBar from '../../components/NavBar/NavBar';
 
 import Product from '../../components/Products/Product';
 import NewsLetter from '../../components/NewsLetter/NewsLetter';
@@ -58,7 +57,6 @@ const ProductLists = () => {
   return (
     <Container>
       <Announcement />
-      <NavBar />
 
       <Title>{cat}</Title>
       <FilterContainer>
