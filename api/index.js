@@ -1,8 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
-
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 const userRoute = require("./routes/userRoute");
 const productRoute = require("./routes/productRoute");
@@ -10,6 +9,7 @@ const authRoute = require("./routes/auth");
 const cartRoute = require("./routes/cartRoute");
 const orderRoute = require("./routes/orderRoute");
 const stripeRoute = require("./routes/stripe");
+
 dotenv.config({ path: "./config.env" });
 // dotenv.config();
 
@@ -24,7 +24,6 @@ mongoose
   .connect(db)
   .then(() => console.log("Successfully connect MongoDB"))
   .catch((err) => console.log(err));
-
 app.use(cors());
 app.use(express.json());
 app.use("/api/users", userRoute);

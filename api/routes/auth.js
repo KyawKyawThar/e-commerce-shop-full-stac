@@ -21,15 +21,14 @@ router.post("/register", async (req, res) => {
   }
 });
 
-
 //Login
 router.post("/login", async (req, res) => {
   try {
-    const user = await userModel.findOne({ email: req.body.email });
+    const user = await userModel.findOne({ username: req.body.username });
     !user && res.status(401).json("Wrong credentials");
 
     const decryptPassword = CryptoJS.AES.decrypt(
-      user.password,
+      user.password, //***
       process.env.PASS_SEC
     );
 
@@ -57,7 +56,5 @@ router.post("/login", async (req, res) => {
     res.status(500).json(e);
   }
 });
-
-
 
 module.exports = router;
