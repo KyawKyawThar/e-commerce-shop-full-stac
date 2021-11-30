@@ -1,12 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_URl = "http://localhost:8080/api";
-const TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNjk5M2M3MGFmNDIwZWVlYWQ3NDZkNSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzNjk4NDAzMCwiZXhwIjoxNjM3MjQzMjMwfQ.-O7iLpbiUtTIG_nBTu-bJ1C_zV7evjEWFKxEL6q9TjI";
+const BASE_URL = 'https://highestlevel-ecommerce.herokuapp.com/api/';
 
-export const publicRequest = axios.create({ basURL: BASE_URl });
+const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxOWJkMGRjOWM4YWNlYTY2ZmFhNTdjZiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODE3MDA4MiwiZXhwIjoxNjM4NDI5MjgyfQ.F0ZfX_6KPeel2MwE7WTVOtSHPHw696IVXIEyuSY1uJ0"
+
+export const publicRequest = axios.create({
+  baseURL: BASE_URL,
+});
 
 export const userRequest = axios.create({
-  baseURL: BASE_URl,
-  headers: { token: TOKEN },
-});
+  baseURL: BASE_URL,
+  headers: {token: `Bearer ${TOKEN}`}
+})

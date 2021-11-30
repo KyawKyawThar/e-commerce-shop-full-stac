@@ -4,7 +4,8 @@ const verifyToken = (req, res, next) => {
   const authHeader = req.headers.token;
 
   if (authHeader) {
-    jwt.verify(authHeader, process.env.JWT_SEC, (err, login) => {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, process.env.JWT_SEC, (err, login) => {
       if (err) res.status(403).json("Token is not valid");
       req.user = login; //you can use whatever u want instant of user
       console.log(login);

@@ -1,37 +1,37 @@
-import styled from "styled-components";
-import ProductDetails from "./ProductDetails";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import styled from 'styled-components';
+
+import Product from './Product';
+import { useEffect, useState } from 'react';
+import { publicRequest } from '../requestMethod';
 
 const Container = styled.div`
-  flex: 1;
-  padding: 2.4rem;
+  padding: 20px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
-const Product = ({ cat, filters, sort }) => {
-  //console.log(cat, filters, sort);
+const Products = ({ cats, filters, sorts }) => {
+  //console.log(cats, filters, sorts);
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get(
-          cat
-            ? `http://localhost:8080/api/products?category=${cat}`
-            : `http://localhost:8080/api/products`
+        const res = await publicRequest.get(
+          cats ? `/products/?category=${cats}` : '/products'
         );
+
         setProducts(res.data);
-      } catch {}
+      } catch (e) {}
     };
     getProducts();
-  }, [cat]); //when cat changes run this function
-  // console.log({ products });
+  }, [cats]);
 
+  //console.log(products);
   useEffect(() => {
-    cat &&
+    cats &&
       setFilteredProducts(
         products.filter((item) =>
           Object.entries(filters).every(([key, value]) =>
@@ -39,16 +39,17 @@ const Product = ({ cat, filters, sort }) => {
           )
         )
       );
-  }, [products, cat, filters]); //when products,cat,filters chages run this func
+  }, [products, cats, filters]);
 
   // console.log({ filteredProducts });
+  // console.log({ products });
 
   useEffect(() => {
-    if (sort === "newest") {
+    if (sorts === 'newest') {
       setFilteredProducts((prev) =>
         [...prev].sort((a, b) => a.createdAt - b.createdAt)
       );
-    } else if (sort === "asc") {
+    } else if (sorts === 'asc') {
       setFilteredProducts((prev) =>
         [...prev].sort((a, b) => a.price - b.price)
       );
@@ -57,20 +58,19 @@ const Product = ({ cat, filters, sort }) => {
         [...prev].sort((a, b) => b.price - a.price)
       );
     }
-  }, [sort]);
+  }, [sorts]);
+
+  //console.log({ sorts });
 
   return (
     <Container>
-      {/* *** Important**** */}
-      {cat
-        ? filteredProducts.map((item) => (
-            <ProductDetails item={item} key={item._id} />
-          ))
+      {cats
+        ? filteredProducts.map((item) => <Product item={item} key={item._id} />)
         : products
             .slice(0, 8)
-            .map((item) => <ProductDetails item={item} key={item._id} />)}
+            .map((item) => <Product item={item} key={item._id} />)}
     </Container>
   );
 };
 
-export default Product;
+export default Products;

@@ -1,57 +1,58 @@
-import { Send } from '@material-ui/icons';
-import styled from 'styled-components';
-import { mobile } from '../../Responsive';
+import { Send } from "@material-ui/icons";
+import styled from "styled-components";
+import { mobile } from "../responsive";
 
 const Container = styled.div`
-  background-color: #fcf5f7;
   height: 60vh;
+  background-color: #fcf5f5;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
 `;
 const Title = styled.h1`
-  font-size: 5.2rem;
-  margin-bottom: 4.8rem;
-
-  font-weight: 600;
+  font-size: 70px;
+  margin-bottom: 20px;
 `;
+
 const Desc = styled.div`
-  font-size: 2.4rem;
-  margin-bottom: 2.4rem;
+  font-size: 24px;
   font-weight: 300;
+  margin-bottom: 20px;
+  ${mobile({ textAlign: "center" })}
 
-  ${mobile({ textAlign: 'center' })}
 `;
+
 const InputContainer = styled.div`
   width: 50%;
-  height: 4.8rem;
+  height: 40px;
   background-color: white;
   display: flex;
   justify-content: space-between;
-  border: 1px solid #d3d3d3;
-
-  ${mobile({ width: '80%' })}
+  border: 1px solid lightgray;
+  ${mobile({ width: "80%" })}
 `;
+
 const Input = styled.input`
   border: none;
-  padding-left: 1.6rem;
   flex: 8;
+  padding-left: 20px;
 `;
+
 const Button = styled.button`
-  flex: 1.5;
+  flex: 1;
   border: none;
   background-color: teal;
   color: white;
 `;
 
-const NewsLetter = () => {
+const Newsletter = () => {
   return (
     <Container>
       <Title>Newsletter</Title>
-      <Desc>Get timely updates from your favorite products</Desc>
+      <Desc>Get timely updates from your favorite products.</Desc>
       <InputContainer>
-        <Input placeholder='Your email' />
+        <Input placeholder="Your email" />
         <Button>
           <Send />
         </Button>
@@ -59,4 +60,5 @@ const NewsLetter = () => {
     </Container>
   );
 };
-export default NewsLetter;
+
+export default Newsletter;

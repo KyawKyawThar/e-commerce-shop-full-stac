@@ -8,7 +8,7 @@ import {
   Twitter,
 } from '@material-ui/icons';
 import styled from 'styled-components';
-import { mobile } from '../../Responsive';
+import { mobile } from '../responsive';
 
 const Container = styled.div`
   display: flex;
@@ -17,19 +17,15 @@ const Container = styled.div`
 
 const Left = styled.div`
   flex: 1;
-  padding: 2.4rem;
   display: flex;
   flex-direction: column;
+  padding: 20px;
 `;
 
-const Logo = styled.h1`
-  font-size: 3.6rem;
-`;
+const Logo = styled.h1``;
 
 const Desc = styled.p`
-  font-size: 1.6rem;
-  margin: 2.4rem 0;
-  line-height: 3.2rem;
+  margin: 20px 0px;
 `;
 
 const SocialContainer = styled.div`
@@ -37,92 +33,83 @@ const SocialContainer = styled.div`
 `;
 
 const SocialIcon = styled.div`
-  width: 4.8rem;
-  height: 4.8rem;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   color: white;
   background-color: #${(props) => props.color};
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-left: 2.4rem;
+  justify-content: center;
+  margin-right: 20px;
 `;
 
 const Center = styled.div`
   flex: 1;
-  padding: 2.4rem;
-
+  padding: 20px;
   ${mobile({ display: 'none' })}
 `;
 
 const Title = styled.h3`
-  margin-bottom: 3.2rem;
-  font-size: 2.4rem;
+  margin-bottom: 30px;
 `;
 
 const List = styled.ul`
-  list-style: none;
   margin: 0;
   padding: 0;
+  list-style: none;
   display: flex;
   flex-wrap: wrap;
 `;
 
 const ListItem = styled.li`
-  font-size: 1.6rem;
   width: 50%;
-  margin-bottom: 1.2rem;
+  margin-bottom: 10px;
 `;
 
 const Right = styled.div`
   flex: 1;
-  padding: 2.5rem;
-  ${mobile({ backgroundColor: '#fcf5f7', marginRight: '-1rem' })}
+  padding: 20px;
+  ${mobile({ backgroundColor: '#fff8f8' })}
 `;
 
-const ContentItem = styled.div`
+const ContactItem = styled.div`
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
-  margin-bottom: 2.4rem;
-  gap: 1.6rem;
-  font-size: 1.6rem;
 `;
 
-const Payment = styled.img``;
+const Payment = styled.img`
+  width: 50%;
+`;
 
 const Footer = () => {
   return (
     <Container>
       <Left>
-        <Logo>HighestLeveL</Logo>
-
+        <Logo>HighestLeveL.</Logo>
         <Desc>
-          There are many variations of passages of Items available, but the
-          majority have suffered alteration in some form, by injected humour, or
-          randomised words which don’t look even slightly believable.
+          There are many variations of passages of Lorem Ipsum available, but
+          the majority have suffered alteration in some form, by injected
+          humour, or randomised words which don’t look even slightly believable.
         </Desc>
-
         <SocialContainer>
           <SocialIcon color='3B5999'>
-            <Facebook style={{ fontSize: 27 }} />
+            <Facebook />
           </SocialIcon>
-
           <SocialIcon color='E4405F'>
-            <Instagram style={{ fontSize: 27 }} />
+            <Instagram />
           </SocialIcon>
-
           <SocialIcon color='55ACEE'>
-            <Twitter style={{ fontSize: 27 }} />
+            <Twitter />
           </SocialIcon>
-
           <SocialIcon color='E60023'>
-            <Pinterest style={{ fontSize: 27 }} />
+            <Pinterest />
           </SocialIcon>
         </SocialContainer>
       </Left>
-
       <Center>
-        <Title>Useful Link</Title>
+        <Title>Useful Links</Title>
         <List>
           <ListItem>Home</ListItem>
           <ListItem>Cart</ListItem>
@@ -137,21 +124,21 @@ const Footer = () => {
         </List>
       </Center>
       <Right>
-        <Title>Content</Title>
-        <ContentItem>
-          <Room style={{ fontSize: 24 }} /> 90 Street Chan Aye TharSan,Mandalay
-        </ContentItem>
-        <ContentItem>
-          <Phone style={{ fontSize: 24 }} /> +95 9 123 45 67
-        </ContentItem>
-
-        <ContentItem>
-          <MailOutline style={{ fontSize: 24 }} /> content@hl.com
-        </ContentItem>
-
+        <Title>Contact</Title>
+        <ContactItem>
+          <Room style={{ marginRight: '10px' }} /> 35-A Street, Mandalay
+        </ContactItem>
+        <ContactItem>
+          <Phone style={{ marginRight: '10px' }} /> +959964444822
+        </ContactItem>
+        <ContactItem>
+          <MailOutline style={{ marginRight: '10px' }} /> contact
+          kyawkyaw.thar84@gmail.com
+        </ContactItem>
         <Payment src='https://i.ibb.co/Qfvn4z6/payment.png' />
       </Right>
     </Container>
   );
 };
+
 export default Footer;
